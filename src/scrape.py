@@ -11,7 +11,7 @@ import sys
 sys.stdout.reconfigure(line_buffering=True) # CI logs
 
 url = "https://ubsooknigyufruxpcbfw.supabase.co"
-key = str(os.getenv("SUPABASE_KEY"))
+key = "sb_publishable_5tmf_QxwQlWZwi8MEUDnvA_3vTKsPqb"
 
 print(key)
 
