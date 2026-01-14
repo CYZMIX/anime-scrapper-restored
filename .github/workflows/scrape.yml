@@ -1,0 +1,47 @@
+name: Daily Scrape
+
+on:
+    workflow_dispatch:
+      inputs:
+        reason:
+          description: 'Scrape Characters'
+          required: false
+          default: 'Manual trigger'
+
+jobs:
+    scrape:
+        runs-on: ubuntu-latest
+
+        env:
+            SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+
+        services:
+            firefox:
+                image: selenium/standalone-firefox
+                ports:
+                    - 4444:4444
+                options: >-
+                    --shm-size=2g
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.13.1" # Specify the Python version
+
+            # - name: Install Firefox
+            #   run: |
+            #       sudo apt-get update
+            #       sudo apt-get install -y firefox
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements.txt
+
+            - name: Run scrape script
+              run: |
+                  python src/scrape.py
