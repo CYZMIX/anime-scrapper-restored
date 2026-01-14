@@ -11,10 +11,9 @@ import sys
 sys.stdout.reconfigure(line_buffering=True) # CI logs
 
 url = "https://ubsooknigyufruxpcbfw.supabase.co"
-key = os.getenv("SUPABASE_KEY")
+key = str(os.getenv("SUPABASE_KEY"))
 
-print("SUPABASE_KEY is None:", key is None)
-print("SUPABASE_KEY length:", 0 if key is None else len(key))
+print(key)
 
 supabase = create_client(url, key)
 
